@@ -68,211 +68,215 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
-const readlineSync = require('readline-sync');
+import java.util.ArrayList;
+import java.util.Scanner;
 
-# =============================================================================
-# PROGRAMMING FUNDAMENTALS — Assignment 4
-# Topic: Multi-dimensional Arrays (2D Lists), Nested Loops, and Functions
-# =============================================================================
-#
-# TASK: Matrix Operations
-#
-# Write a Python program that performs three operations on matrices (2D lists),
-# each implemented in its own function.
-#
-# -----------------------------------------------------------------------------
-# PART A — Transpose a Matrix
-# -----------------------------------------------------------------------------
-# - Read an M x N matrix from the user.
-# - Compute and display its transpose (rows become columns, columns become rows).
-#
-# Example (2 x 3 input):
-#
-#   Original Matrix:      Transposed Matrix:
-#   1  2  3               1  4
-#   4  5  6               2  5
-#                         3  6
-#
-# -----------------------------------------------------------------------------
-# PART B — Add Two Matrices
-# -----------------------------------------------------------------------------
-# - Read two matrices of exactly the same size (M x N).
-# - Compute their element-wise sum and display the result.
-#   (Each position in the result = the sum of the values at that position
-#    in both matrices.)
-#
-# -----------------------------------------------------------------------------
-# PART C — Multiply Two Matrices
-# -----------------------------------------------------------------------------
-# - Read matrix A of size M x N and matrix B of size N x P.
-#   (The number of COLUMNS in A must equal the number of ROWS in B.)
-# - Compute and display the matrix product A × B (result is M x P).
-#
-# -----------------------------------------------------------------------------
-# EXPECTED INPUT FORMAT
-# -----------------------------------------------------------------------------
-# When entering a row, the user types all values on one line separated by spaces:
-#
-#   Enter number of rows: 2
-#   Enter number of columns: 3
-#   Enter row 1: 1 2 3
-#   Enter row 2: 4 5 6
-#
-# -----------------------------------------------------------------------------
-# REQUIREMENTS
-# -----------------------------------------------------------------------------
-# - Use nested loops for all operations (no NumPy or other libraries).
-# - Each operation must be in its own function (see scaffold below).
-# - Display each matrix in a neat, aligned grid format.
-# - Tip: Complete Part A first, then Parts B and C.
-#
+public class MatrixOperations {
 
-#
-# =============================================================================
-# YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
-# =============================================================================
-""""
-#   row=(int(input("Enter row values: ")))
-#  col=(int(input("Enter row values: ")))
-#
-"""
-# =============================================================================
-# PROGRAMMING FUNDAMENTALS — Assignment 4
-# Topic: Multi-dimensional Arrays (2D Lists), Nested Loops, and Functions
-# =============================================================================
+    // Function to transpose matrices
+    public static void transposeMatrix(ArrayList<ArrayList<Float>> m1,
+                                       ArrayList<ArrayList<Float>> m2,
+                                       ArrayList<ArrayList<Float>> transpose1,
+                                       ArrayList<ArrayList<Float>> transpose2) {
 
+        int rows1 = m1.size();
+        int cols1 = m1.get(0).size();
 
-# =============================================================================
-# PART A — Transpose a Matrix (Written in Your Style)
-# =============================================================================
+        for (int j = 0; j < cols1; j++) {
+            ArrayList<Float> newRow = new ArrayList<>();
 
-def Matrix(m1, m2):
+            for (int i = 0; i < rows1; i++) {
+                newRow.add(m1.get(i).get(j));
+            }
 
-    number_of_rows_func_m1 = len(m1)
-    number_of_columns_func_m1 = len(m1[0])
-    
-    line_m1 = []
-    
-    for j in range(number_of_columns_func_m1):
-        new_row = []
-        for i in range(number_of_rows_func_m1):
-            new_row.append(m1[i][j])
-        line_m1.append(new_row)
+            transpose1.add(newRow);
+        }
 
-    number_of_rows_func_m2 = len(m2)
-    number_of_columns_func_m2 = len(m2[0])
-    
-    line_m2 = []
-    
-    for j in range(number_of_columns_func_m2):
-        new_row = []
-        for i in range(number_of_rows_func_m2):
-            new_row.append(m2[i][j])
-        line_m2.append(new_row)
-        
-    return line_m1, line_m2
+        int rows2 = m2.size();
+        int cols2 = m2.get(0).size();
 
-def add_matrix(m1, m2):
-    number_of_rows_func = len(m1)
-    number_of_columns_func = len(m1[0])
-    
-    sum_of_m = []
-    for i in range(number_of_rows_func):
-        new_row = []
-        for j in range(number_of_columns_func):
-            new_row.append(m1[i][j] + m2[i][j])
-        sum_of_m.append(new_row)
-        
-    return sum_of_m
+        for (int j = 0; j < cols2; j++) {
+            ArrayList<Float> newRow = new ArrayList<>();
 
-def multiply_matrix(m1, m2):
-    row_1 = len(m1)
-    column_1 = len(m1[0])
-    column_2 = len(m2[0])
-    
-    product_matrix = []
-    for i in range(row_1):
-        new_row = []
-        for j in range(column_2):
-            cell_value = 0
-            for k in range(column_1):
-                cell_value += m1[i][k] * m2[k][j]
-            new_row.append(cell_value)
-        product_matrix.append(new_row)
-        
-    return product_matrix
+            for (int i = 0; i < rows2; i++) {
+                newRow.add(m2.get(i).get(j));
+            }
 
-print("\n For Matrix_1")
-number_of_row_user_m1 = int(input("Enter number of rows: "))
-number_of_column_user_m1 = int(input("Enter number of columns: "))
-print("\n For Matrix_2:")
-number_of_row_user_m2 = int(input("Enter number of rows: "))
-number_of_column_user_m2 = int(input("Enter number of columns: "))
+            transpose2.add(newRow);
+        }
+    }
 
-if number_of_row_user_m1 <= 0 or number_of_column_user_m1 <= 0 or number_of_row_user_m1 <= 0 or number_of_column_user_m1 <= 0:
-    print("Invalid input, dimensions must be positive")
-    print("Invalid entry, input must be a positive integer.")
-else:
-    print("--input m1 values--")
-    create_m1 = []
-    for i in range (number_of_row_user_m1):
-        while True:
-            try:
-                row_values = [float(x) for x in input(f"Enter row {i + 1}: ").split()]
-                if len(row_values) != number_of_column_user_m1:
-                    print(f"Error: Expected {number_of_column_user_m1} values, got {len(row_values)}. Try again.")
-                    continue
+    // Function to add matrices
+    public static ArrayList<ArrayList<Float>> addMatrix(ArrayList<ArrayList<Float>> m1,
+                                                        ArrayList<ArrayList<Float>> m2) {
 
-                create_m1.append(row_values)
-                break
-            except ValueError:
-                print("Invalid entry: Please enter numbers only separated by spaces.")
-    print("--input m2 values--")
-    create_m2 = []
-    for i in range (number_of_row_user_m2):
-        while True:
-            try: 
-                row_values = [float(x) for x in input(f"Enter row {i + 1}: ").split()]
-                if len(row_values) != number_of_column_user_m2:
-                    print(f"Error: Expected {number_of_column_user_m2} values, got {len(row_values)}. Try again.")
-                    continue
-                    
-                create_m2.append(row_values)
-                break    
-            except ValueError:
-                print("Invalid entry: Please enter numbers only separated by spaces.")
+        ArrayList<ArrayList<Float>> sum = new ArrayList<>();
 
-    result_m1,result_m2 = Matrix(create_m1, create_m2)
+        for (int i = 0; i < m1.size(); i++) {
 
-if number_of_row_user_m1 == number_of_row_user_m2 and number_of_column_user_m1 == number_of_column_user_m2:
-        added_matrix = add_matrix(create_m1, create_m2)
-        print("\nMatrix Addition (m1 + m2):")
-        for row in added_matrix:
-            for val in row:
-                print(val, end=" ")
-            print()
-else:
-        print("\nMatrix Addition skipped: Dimensions must be identical.")
+            ArrayList<Float> row = new ArrayList<>();
 
-if number_of_column_user_m1 == number_of_row_user_m2:
-        multiplied_matrix = multiply_matrix(create_m1, create_m2)
-        print("\nMatrix Multiplication (m1 * m2):")
-        for row in multiplied_matrix:
-            for val in row:
-                print(val, end=" ")
-            print()
-else:
-        print("\nMatrix Multiplication impossible: Columns of Matrix 1 must equal rows of Matrix 2.")    
+            for (int j = 0; j < m1.get(0).size(); j++) {
+                row.add(m1.get(i).get(j) + m2.get(i).get(j));
+            }
 
-        print("\n Matrix 1:")
-        for row in result_m1:
-            for val in row:
-                print(val, end=" ")
-            print()
+            sum.add(row);
+        }
 
-        print("\n Matrix2:")
-        for row in result_m2:
-            for val in row:
-                print(val, end=" ")
-            print()
+        return sum;
+    }
 
+    // Function to multiply matrices
+    public static ArrayList<ArrayList<Float>> multiplyMatrix(ArrayList<ArrayList<Float>> m1,
+                                                             ArrayList<ArrayList<Float>> m2) {
+
+        int rows1 = m1.size();
+        int cols1 = m1.get(0).size();
+        int cols2 = m2.get(0).size();
+
+        ArrayList<ArrayList<Float>> product = new ArrayList<>();
+
+        for (int i = 0; i < rows1; i++) {
+
+            ArrayList<Float> row = new ArrayList<>();
+
+            for (int j = 0; j < cols2; j++) {
+
+                float value = 0;
+
+                for (int k = 0; k < cols1; k++) {
+                    value += m1.get(i).get(k) * m2.get(k).get(j);
+                }
+
+                row.add(value);
+            }
+
+            product.add(row);
+        }
+
+        return product;
+    }
+
+    // Main method
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        int rows1, cols1, rows2, cols2;
+
+        System.out.println("\nFor Matrix 1");
+        System.out.print("Enter number of rows: ");
+        rows1 = input.nextInt();
+
+        System.out.print("Enter number of columns: ");
+        cols1 = input.nextInt();
+
+        System.out.println("\nFor Matrix 2");
+        System.out.print("Enter number of rows: ");
+        rows2 = input.nextInt();
+
+        System.out.print("Enter number of columns: ");
+        cols2 = input.nextInt();
+
+        if (rows1 <= 0 || cols1 <= 0 || rows2 <= 0 || cols2 <= 0) {
+            System.out.println("Invalid input. Dimensions must be positive.");
+            return;
+        }
+
+        ArrayList<ArrayList<Float>> m1 = new ArrayList<>();
+        ArrayList<ArrayList<Float>> m2 = new ArrayList<>();
+
+        System.out.println("\n--Input Matrix 1 values--");
+
+        for (int i = 0; i < rows1; i++) {
+
+            ArrayList<Float> row = new ArrayList<>();
+
+            System.out.print("Enter row " + (i + 1) + ": ");
+
+            for (int j = 0; j < cols1; j++) {
+                row.add(input.nextFloat());
+            }
+
+            m1.add(row);
+        }
+
+        System.out.println("\n--Input Matrix 2 values--");
+
+        for (int i = 0; i < rows2; i++) {
+
+            ArrayList<Float> row = new ArrayList<>();
+
+            System.out.print("Enter row " + (i + 1) + ": ");
+
+            for (int j = 0; j < cols2; j++) {
+                row.add(input.nextFloat());
+            }
+
+            m2.add(row);
+        }
+
+        ArrayList<ArrayList<Float>> transpose1 = new ArrayList<>();
+        ArrayList<ArrayList<Float>> transpose2 = new ArrayList<>();
+
+        transposeMatrix(m1, m2, transpose1, transpose2);
+
+        // Matrix Addition
+        if (rows1 == rows2 && cols1 == cols2) {
+
+            ArrayList<ArrayList<Float>> added = addMatrix(m1, m2);
+
+            System.out.println("\nMatrix Addition (m1 + m2):");
+
+            for (ArrayList<Float> row : added) {
+                for (Float value : row) {
+                    System.out.print(value + " ");
+                }
+                System.out.println();
+            }
+
+        } else {
+            System.out.println("\nMatrix Addition skipped: Dimensions must be identical.");
+        }
+
+        // Matrix Multiplication
+        if (cols1 == rows2) {
+
+            ArrayList<ArrayList<Float>> multiplied = multiplyMatrix(m1, m2);
+
+            System.out.println("\nMatrix Multiplication (m1 * m2):");
+
+            for (ArrayList<Float> row : multiplied) {
+                for (Float value : row) {
+                    System.out.print(value + " ");
+                }
+                System.out.println();
+            }
+
+        } else {
+            System.out.println("\nMatrix Multiplication impossible: Columns of Matrix 1 must equal rows of Matrix 2.");
+        }
+
+        // Display transpose of Matrix 1
+        System.out.println("\nTranspose of Matrix 1:");
+
+        for (ArrayList<Float> row : transpose1) {
+            for (Float value : row) {
+                System.out.print(value + " ");
+            }
+            System.out.println();
+        }
+
+        // Display transpose of Matrix 2
+        System.out.println("\nTranspose of Matrix 2:");
+
+        for (ArrayList<Float> row : transpose2) {
+            for (Float value : row) {
+                System.out.print(value + " ");
+            }
+            System.out.println();
+        }
+
+        input.close();
+    }
+}
