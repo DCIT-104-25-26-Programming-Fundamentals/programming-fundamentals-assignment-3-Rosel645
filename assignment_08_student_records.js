@@ -83,5 +83,145 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Student {
+    String name;
+    String id;
+    ArrayList<Double> scores;
+
+    public Student(String name, String id, ArrayList<Double> scores) {
+        this.name = name;
+        this.id = id;
+        this.scores = scores;
+    }
+
+    public double getAverage() {
+        if (scores.isEmpty()) return 0.0;
+        double sum = 0;
+        for (double score : scores) {
+            sum += score;
+        }
+        return sum / scores.size();
+    }
+}
+
+public class StudentRecordSystem {
+    private static ArrayList<Student> students = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void addStudent() {
+        System.out.print("Student name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Student ID: ");
+        String studentId = scanner.nextLine();
+
+        ArrayList<Double> scores = new ArrayList<>();
+
+        System.out.print("How many scores? ");
+        int numberOfScores = 0;
+        try {
+            numberOfScores = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Setting score count to 0.");
+        }
+
+        for (int i = 0; i < numberOfScores; i++) {
+            System.out.print("Enter score " + (i + 1) + ": ");
+            try {
+                double score = Double.parseDouble(scanner.nextLine());
+                scores.add(score);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid score format. Skipping this score.");
+            }
+        }
+
+        students.add(new Student(name, studentId, scores));
+        System.out.println("Student \"" + name + "\" added successfully.");
+    }
+
+    public static void displayStudents() {
+        if (students.isEmpty()) {
+            System.out.println("No students have been added yet.");
+            return;
+        }
+
+        System.out.println("\n--------------------------------------------------------------");
+        System.out.println("Name\t\tID\t\tScores\t\tAverage");
+        System.out.println("--------------------------------------------------------------");
+
+        for (Student student : students) {
+            StringBuilder scoreList = new StringBuilder();
+            for (int i = 0; i < student.scores.size(); i++) {
+                scoreList.append(student.scores.get(i));
+                if (i != student.scores.size() - 1) {
+                    scoreList.append(", ");
+                }
+            }
+
+            System.out.printf("%s\t\t%s\t\t%s\t\t%.2f%n", 
+                student.name, student.id, scoreList.toString(), student.getAverage());
+        }
+
+        System.out.println("--------------------------------------------------------------");
+    }
+
+    public static void calculateAverage() {
+        System.out.print("Enter student ID: ");
+        String studentId = scanner.nextLine();
+
+        boolean found = false;
+
+        for (Student student : students) {
+            if (student.id.equals(studentId)) {
+                System.out.printf("%s's average score: %.2f%n", student.name, student.getAverage());
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Error: Student ID not found.");
+        }
+    }
+
+    public static void showMenu() {
+        System.out.println("\n================================");
+        System.out.println("   STUDENT RECORD SYSTEM MENU");
+        System.out.println("================================");
+        System.out.println("1. Add student");
+        System.out.println("2. Display all students");
+        System.out.println("3. Calculate average score");
+        System.out.println("4. Quit");
+    }
+
+    public static void main(String[] args) {
+        while (true) {
+            showMenu();
+            System.out.print("Enter your choice (1-4): ");
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1":
+                    addStudent();
+                    break;
+                case "2":
+                    displayStudents();
+                    break;
+                case "3":
+                    calculateAverage();
+                    break;
+                case "4":
+                    System.out.println("Goodbye!");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Error: Invalid choice. Please enter a number from 1 to 4.");
+            }
+        }
+    }
+}
 
 
