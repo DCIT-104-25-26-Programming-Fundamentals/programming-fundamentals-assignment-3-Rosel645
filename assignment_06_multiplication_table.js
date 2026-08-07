@@ -58,5 +58,77 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+import java.util.Scanner;
+
+public class MultiplicationTableGenerator {
+
+    // Function for Part A - Single Multiplication Table
+    public static void singleTable() {
+
+        Scanner input = new Scanner(System.in);
+
+        int number;
+
+        System.out.println("PART A - Single Multiplication Table");
+
+        System.out.print("Enter a number: ");
+        number = input.nextInt();
+
+        if (number <= 0) {
+            System.out.println("Error: Please enter a positive integer.");
+            return;
+        }
+
+        System.out.println("\nMultiplication Table for " + number);
+        System.out.println("---------------------------");
+
+        for (int i = 1; i <= 12; i++) {
+            System.out.println(number + " x " + i + " = " + (number * i));
+        }
+    }
+
+    // Function for Part B - Tables from 1 to N
+    public static void tablesToN() {
+
+        Scanner input = new Scanner(System.in);
+
+        int n;
+
+        System.out.println("\nPART B - Multiplication Tables from 1 to N");
+
+        System.out.print("Enter a positive integer: ");
+        n = input.nextInt();
+
+        if (n <= 0) {
+            System.out.println("Error: Please enter a positive integer greater than zero.");
+            return;
+        }
+
+        for (int number = 1; number <= n; number++) {
+
+            System.out.println("\nMultiplication Table for " + number);
+            System.out.println("---------------------------");
+
+            for (int i = 1; i <= 12; i++) {
+                System.out.println(number + " x " + i + " = " + (number * i));
+            }
+
+            System.out.println("---------------------------");
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+
+        System.out.println("WELCOME TO THE MULTIPLICATION TABLE GENERATOR");
+        System.out.println("=============================================");
+
+        singleTable();
+
+        tablesToN();
+
+        System.out.println("\nThank you for using the Multiplication Table Generator!");
+    }
+}
 
 
