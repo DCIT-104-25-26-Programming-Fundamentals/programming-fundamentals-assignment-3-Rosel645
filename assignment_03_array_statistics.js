@@ -43,54 +43,166 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
-T_num = int(input("Enter listr total:"))
-if  T_num <5:
-          print("Invalid input,min of 5 values")
-else: 
-          my_array =[]
-          for i in range(T_num):
-              val=float(input (f"Enter array values{1+!}: "))
-              while val <= 8:
-                  print("Invalid input, no value less than 1")
-                  val=float(input (f"Enter array values {i+1}: "))
-              my_array.append(val)
+import java.util.ArrayList;
+import java.util.Scanner;
 
-def add_num(n):
-        Total =8
-        for item in n:
-              Total += item 
-        return Total 
+public class StudentRecordSystem {
 
-def mean(n):
-         x=add_num(n)/T_num
-        return x
+    static Scanner input = new Scanner(System.in);
+    static ArrayList<Student> students = new ArrayList<>();
 
-def maxim(n):
-        maxim=n[0]
-        for i in range(1, len(n)):
-            if n[i] > maxim:
-                maxim = n[i]
-        return maxim 
+    // Student class
+    static class Student {
+        String name;
+        String id;
+        ArrayList<Double> scores;
 
+        Student(String name, String id, ArrayList<Double> scores) {
+            this.name = name;
+            this.id = id;
+            this.scores = scores;
+        }
+    }
 
+    // Function to add a student
+    public static void addStudent() {
 
-def minim(n):
-        minim=n[0]
-        for i in range(1, len(n)):
-            if n[i] < minim:
-                 minim = n[i]
-        return minim 
+        System.out.print("Student name: ");
+        String name = input.nextLine();
 
-SUMMATION = add_num(my_array)
-AVERAGE = mean(my_array) 
-MAXIMUM = maxim(my_array)
-MINIMUM = minim(my_array)
+        System.out.print("Student ID: ");
+        String studentId = input.nextLine();
 
+        ArrayList<Double> scores = new ArrayList<>();
 
-print ("")
-print (------------------------------------)
-print ("SUM   =", SUMMATION)
-print ("AVERAGE =", AVERAGE)
-print ("MAX =",  MAXIMUM)
-print ("MIN =",   MINIMUM)
+        System.out.print("How many scores? ");
+        int numberOfScores = input.nextInt();
+
+        for (int i = 0; i < numberOfScores; i++) {
+            System.out.print("Enter score " + (i + 1) + ": ");
+            double score = input.nextDouble();
+            scores.add(score);
+        }
+
+        input.nextLine(); // Clears the newline
+
+        Student student = new Student(name, studentId, scores);
+        students.add(student);
+
+        System.out.println("Student \"" + name + "\" added successfully.");
+    }
+
+    // Function to display all students
+    public static void displayStudents() {
+
+        if (students.size() == 0) {
+            System.out.println("No students have been added yet.");
+            return;
+        }
+
+        System.out.println("\n--------------------------------------------------------------");
+        System.out.println("Name\t\tID\t\tScores\t\tAverage");
+        System.out.println("--------------------------------------------------------------");
+
+        for (Student student : students) {
+
+            double total = 0;
+
+            for (double score : student.scores) {
+                total += score;
+            }
+
+            double average = total / student.scores.size();
+
+            String scoreList = "";
+
+            for (int i = 0; i < student.scores.size(); i++) {
+                scoreList += student.scores.get(i);
+
+                if (i != student.scores.size() - 1) {
+                    scoreList += ", ";
+                }
+            }
+
+            System.out.println(student.name + "\t\t" +
+                    student.id + "\t\t" +
+                    scoreList + "\t\t" +
+                    String.format("%.2f", average));
+        }
+
+        System.out.println("--------------------------------------------------------------");
+    }
+
+    // Function to calculate average score
+    public static void calculateAverage() {
+
+        System.out.print("Enter student ID: ");
+        String studentId = input.nextLine();
+
+        boolean found = false;
+
+        for (Student student : students) {
+
+            if (student.id.equals(studentId)) {
+
+                double total = 0;
+
+                for (double score : student.scores) {
+                    total += score;
+                }
+
+                double average = total / student.scores.size();
+
+                System.out.println(student.name + "'s average score: " +
+                        String.format("%.2f", average));
+
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Error: Student ID not found.");
+        }
+    }
+
+    // Function to display the menu
+    public static void showMenu() {
+
+        System.out.println("\n================================");
+        System.out.println("   STUDENT RECORD SYSTEM MENU");
+        System.out.println("================================");
+        System.out.println("1. Add student");
+        System.out.println("2. Display all students");
+        System.out.println("3. Calculate average score");
+        System.out.println("4. Quit");
+    }
+
+    // Main method
+    public static void main(String[] args) {
+
+        while (true) {
+
+            showMenu();
+
+            System.out.print("Enter your choice (1-4): ");
+            String choice = input.nextLine();
+
+            if (choice.equals("1")) {
+                addStudent();
+            } else if (choice.equals("2")) {
+                displayStudents();
+            } else if (choice.equals("3")) {
+                calculateAverage();
+            } else if (choice.equals("4")) {
+                System.out.println("Goodbye!");
+                break;
+            } else {
+                System.out.println("Error: Invalid choice. Please enter a number from 1 to 4.");
+            }
+        }
+
+        input.close();
+    }
+}
 
