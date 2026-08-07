@@ -80,5 +80,90 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class TodoList {
+    private static ArrayList<String> tasks = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void addTask() {
+        System.out.print("Enter task: ");
+        String task = scanner.nextLine();
+        tasks.add(task);
+        System.out.println("Task added: \"" + task + "\"");
+    }
+
+    public static void viewTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("Your to-do list is empty.");
+        } else {
+            System.out.println("\nYour Tasks:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+    }
+
+    public static void deleteTask() {
+        if (tasks.isEmpty()) {
+            System.out.println("There are no tasks to delete.");
+            return;
+        }
+
+        viewTasks();
+
+        System.out.print("Enter task number to delete: ");
+        String choiceInput = scanner.nextLine();
+
+        try {
+            int choice = Integer.parseInt(choiceInput);
+            if (choice >= 1 && choice <= tasks.size()) {
+                String removedTask = tasks.remove(choice - 1);
+                System.out.println("Task \"" + removedTask + "\" has been removed.");
+            } else {
+                System.out.println("Error: Invalid task number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Please enter a valid number.");
+        }
+    }
+
+    public static void showMenu() {
+        System.out.println("\n============================");
+        System.out.println("      TO-DO LIST MENU");
+        System.out.println("============================");
+        System.out.println("1. Add task");
+        System.out.println("2. View tasks");
+        System.out.println("3. Delete task");
+        System.out.println("4. Quit");
+    }
+
+    public static void main(String[] args) {
+        while (true) {
+            showMenu();
+            System.out.print("Enter your choice (1-4): ");
+            String choice = scanner.nextLine();
+
+            switch (choice) {
+                case "1":
+                    addTask();
+                    break;
+                case "2":
+                    viewTasks();
+                    break;
+                case "3":
+                    deleteTask();
+                    break;
+                case "4":
+                    System.out.println("Goodbye!");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Error: Invalid choice. Please enter a number from 1 to 4.");
+            }
+        }
+    }
+}
 
 
