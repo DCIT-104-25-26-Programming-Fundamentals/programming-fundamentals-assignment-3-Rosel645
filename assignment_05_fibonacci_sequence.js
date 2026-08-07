@@ -53,5 +53,80 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+import java.util.Scanner;
 
+public class FibonacciProgram {
+
+    // Function to print Fibonacci sequence
+    public static void printFibonacciTerms() {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("How many terms? ");
+        int n = input.nextInt();
+
+        if (n <= 0) {
+            System.out.println("Error: N must be a positive integer.");
+            return;
+        }
+
+        int a = 0;
+        int b = 1;
+
+        System.out.print("Fibonacci sequence: ");
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(a + " ");
+            int next = a + b;
+            a = b;
+            b = next;
+        }
+
+        System.out.println();
+    }
+
+    // Function to check if a number is a Fibonacci number
+    public static void checkFibonacciNumber() {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter a number to check: ");
+        int num = input.nextInt();
+
+        if (num < 0) {
+            System.out.println(num + " is NOT a Fibonacci number.");
+            return;
+        }
+
+        int a = 0;
+        int b = 1;
+
+        while (a < num) {
+            int next = a + b;
+            a = b;
+            b = next;
+        }
+
+        if (a == num) {
+            System.out.println(num + " is a Fibonacci number.");
+        } else {
+            System.out.println(num + " is NOT a Fibonacci number.");
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+
+        System.out.println("==================================");
+        System.out.println("     FIBONACCI PROGRAM");
+        System.out.println("==================================");
+
+        printFibonacciTerms();
+        System.out.println();
+
+        checkFibonacciNumber();
+
+        System.out.println("\nProgram completed successfully.");
+    }
+}
 
